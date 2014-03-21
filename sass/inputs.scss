@@ -1,0 +1,111 @@
+/* variables and mixins */
+$base-color:#257FCC;
+
+@mixin mixin-rotate($deg) {
+    -webkit-transform:rotate($deg);
+    -moz-transform:rotate($deg);
+    transform:rotate($deg);
+}
+
+input {
+    margin:0;
+    padding:.3em;
+    font-size:inherit;
+    font-family:inherit;
+    border:1px solid rgba(#000,.35);
+    border-radius:.25em;
+    background:#FFF;
+    box-sizing:border-box;
+    box-shadow:none;
+    color:inherit;
+    text-rendering: optimizeLegibility;
+
+    &:not([type="range"]) {
+        &:focus {
+            outline:1px solid rgba($base-color,.15);
+            outline-offset:.3em;
+        }
+    }
+
+    &[disabled] {
+        opacity:.65;
+        cursor: not-allowed;
+    }
+
+    &[readonly] {
+        text-align:right;
+        width:100%;
+    }
+
+    &::-moz-focus-inner { /*Remove button padding in FF*/
+        border: 0;
+        padding: 0;
+    }
+
+    /* CHECKBOXES AND RADIO BUTTONS */
+    &[type="radio"],
+    &[type="checkbox"] {
+        -webkit-appearance:none;
+        appearance:none;
+        border: 1px solid rgba(#000,.45);
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        margin-right:.25em;
+        vertical-align: text-bottom;
+        color:$base-color;
+        position:relative;
+        box-shadow:0 .1em .25em 0 rgba(#FFF,.15) inset;
+        &:checked {
+            background:rgba($base-color,.15);
+        }
+        &:focus {
+            outline:none;
+            box-shadow:0 .5em .25em 0 rgba(#FFF,.15) inset, 0 0 .25em 0 rgba($base-color,.5);
+            background:rgba($base-color,.15);
+        }
+        &:before {
+            content:'';
+            position:absolute;
+        }
+        &[disabled] {
+            border-color:rgba(#000,.25);
+            background:rgba(#000,.1);
+            + label {
+                color:rgba(#000,.45);
+                cursor: not-allowed;
+            }
+        }
+        &:indeterminate {
+            background:rgba(#F09,.15);
+        }
+    }
+
+    &[type="radio"] {
+        border-radius:2em;
+        -moz-appearance:radio; // let firefox have its stubborn UA styles
+        &:checked:before {
+            background:$base-color;
+            padding:0;
+            top:25%;
+            left:25%;
+            width:50%;
+            height:50%;
+            border-radius:1em;
+            margin:0;
+        }
+    }
+
+    &[type="checkbox"] {
+        border-radius:.2em;
+        -moz-appearance:checkbox; // let firefox have its stubborn UA styles
+        &:checked:before{
+            @include mixin-rotate(-45deg);
+            border:0px solid;
+            border-width:0 0 .225em .225em;
+            padding:.15em .4em;
+            left:15%;
+            top:-10%;
+        }
+    }
+}
